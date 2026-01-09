@@ -1,0 +1,29 @@
+[Unit]
+Description=Tinghai Web Service
+After=network.target
+
+[Service]
+User=tester
+Group=tester
+WorkingDirectory=/home/tester/project/tinghai_web
+
+# 如果你有虚拟环境，请确保 start_server.sh 能使用它，或者在这里设置 PATH
+# 假设我们使用当前用户环境
+Environment="PATH=/usr/local/bin:/usr/bin:/bin:/home/tester/.local/bin"
+
+# 关键：执行启动脚本
+ExecStart=/home/tester/project/tinghai_web/start_server.sh
+
+# 自动重启配置
+Restart=always
+RestartSec=5
+
+# 日志输出到 syslog (journalctl 查看)
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=tinghai-web
+
+[Install]
+WantedBy=multi-user.target
+
+
